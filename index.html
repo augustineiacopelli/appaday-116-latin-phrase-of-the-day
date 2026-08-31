@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Latin Phrase of the Day - AppADay 116</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f1e7;
+    --bg-card: #fffdf8;
+    --ink: #2b241c;
+    --ink-soft: #6b5f4f;
+    --gold: #a8813a;
+    --gold-deep: #7c5e28;
+    --line: #ded2b8;
+    --accent-liturgy: #7c2d3a;
+    --accent-law: #2d4a5c;
+    --accent-philosophy: #3f5c3f;
+    --accent-motto: #7a5230;
+    --shadow: 0 4px 18px rgba(60, 45, 20, 0.12);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(168,129,58,0.08), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(124,45,58,0.06), transparent 45%);
+    color: var(--ink);
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .app-shell {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  header.app-header {
+    padding: 18px 4px 14px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .app-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--gold-deep);
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    padding: 2px 9px;
+    letter-spacing: 0.03em;
+  }
+
+  .app-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--ink);
+  }
+
+  .backlink {
+    font-size: 13px;
+    color: var(--gold-deep);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .backlink:hover, .backlink:focus {
+    border-bottom-color: var(--gold-deep);
+  }
+
+  main {
+    flex: 1;
+    padding: 18px 4px 24px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .tabs {
+    display: flex;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+    box-shadow: var(--shadow);
+  }
+
+  .tab-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 12px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink-soft);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .tab-btn.active {
+    background: var(--gold-deep);
+    color: #fff8ec;
+  }
+
+  .view { display: none; flex-direction: column; gap: 16px; }
+  .view.active { display: flex; }
+
+  .today-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .today-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-deep));
+  }
+
+  .today-date {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  .cat-pill {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .cat-liturgy { background: var(--accent-liturgy); }
+  .cat-law { background: var(--accent-law); }
+  .cat-philosophy { background: var(--accent-philosophy); }
+  .cat-motto { background: var(--accent-motto); }
+
+  .latin-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin: 0 0 8px 0;
+  }
+
+  .translation-text {
+    font-size: 17px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: 0 0 14px 0;
+  }
+
+  .pronunciation-row {
+    font-size: 14px;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+  }
+
+  .pronunciation-row .label {
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-right: 4px;
+  }
+
+  .usage-text {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    margin: 0;
+  }
+
+  .card-footer-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+
+  .fav-btn {
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold-deep);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .fav-btn .star { font-size: 16px; line-height: 1; }
+
+  .fav-btn.active {
+    background: var(--gold-deep);
+    color: #fff8ec;
+  }
+
+  .archive-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .filter-chip {
+    flex: 0 0 auto;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 13px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .filter-chip.active {
+    background: var(--ink);
+    color: #fff8ec;
+    border-color: var(--ink);
+  }
+
+  .page-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 8px;
+    box-shadow: var(--shadow);
+  }
+
+  .page-nav button {
+    border: none;
+    background: var(--ink);
+    color: #fff8ec;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-nav button:disabled {
+    background: var(--line);
+    color: #9a8f78;
+    cursor: not-allowed;
+  }
+
+  .page-nav .page-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+
+  .archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .archive-entry {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .archive-entry-head {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .archive-entry-head .latin-small {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--ink);
+  }
+
+  .archive-entry-head .chev {
+    font-size: 14px;
+    color: var(--ink-soft);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .archive-entry.open .chev { transform: rotate(180deg); }
+
+  .archive-entry-body {
+    display: none;
+    padding: 0 16px 16px 16px;
+  }
+
+  .archive-entry.open .archive-entry-body { display: block; }
+
+  .archive-entry-body .translation-text { margin-bottom: 10px; }
+  .archive-entry-body .pronunciation-row { margin-bottom: 10px; }
+  .archive-entry-body .usage-text { border-top: none; padding-top: 0; }
+
+  .empty-note {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    padding: 24px 10px;
+  }
+
+  footer.app-footer {
+    padding: 16px 4px 22px 4px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  footer.app-footer a {
+    color: var(--gold-deep);
+    text-decoration: none;
+  }
+
+  footer.app-footer a:hover, footer.app-footer a:focus {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 640px) {
+    .latin-text { font-size: 40px; }
+    .today-card { padding: 34px 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <header class="app-header">
+    <div class="brand">
+      <span class="app-number">116</span>
+      <span class="app-name">Latin Phrase of the Day</span>
+    </div>
+    <a class="backlink" href="https://augustineiacopelli.github.io/appaday/">AppADay</a>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <button type="button" class="tab-btn active" id="tab-today" onclick="switchView('today')">Today</button>
+      <button type="button" class="tab-btn" id="tab-archive" onclick="switchView('archive')">Archive</button>
+    </div>
+
+    <section class="view active" id="view-today">
+      <div class="today-card" id="today-card"></div>
+    </section>
+
+    <section class="view" id="view-archive">
+      <div class="archive-controls">
+        <div class="filter-row" id="filter-row"></div>
+        <div class="page-nav">
+          <button type="button" id="prev-day" onclick="pageArchive(-1)">&larr;</button>
+          <span class="page-label" id="page-label"></span>
+          <button type="button" id="next-day" onclick="pageArchive(1)">&rarr;</button>
+        </div>
+      </div>
+      <div class="archive-list" id="archive-list"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>App 116 of AppADay</span>
+    <a href="https://augustineiacopelli.github.io/appaday/">augustineiacopelli.github.io/appaday</a>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var PHRASES = [
+  {
+    "id": 1,
+    "latin": "Agnus Dei",
+    "translation": "Lamb of God",
+    "pronunciation": "AHN-yoos DEH-ee",
+    "category": "liturgy",
+    "usage": "Sung at Mass before Communion, addressing Christ as the sacrificial lamb."
+  },
+  {
+    "id": 2,
+    "latin": "Ave Maria",
+    "translation": "Hail Mary",
+    "pronunciation": "AH-veh mah-REE-ah",
+    "category": "liturgy",
+    "usage": "Opening words of the most common Marian prayer."
+  },
+  {
+    "id": 3,
+    "latin": "Gloria in excelsis Deo",
+    "translation": "Glory to God in the highest",
+    "pronunciation": "GLOH-ree-ah in ex-CHEL-sees DEH-oh",
+    "category": "liturgy",
+    "usage": "The opening line of the Gloria hymn at Mass."
+  },
+  {
+    "id": 4,
+    "latin": "Sanctus",
+    "translation": "Holy",
+    "pronunciation": "SAHNK-toos",
+    "category": "liturgy",
+    "usage": "The acclamation before the Eucharistic Prayer, echoing Isaiah's vision."
+  },
+  {
+    "id": 5,
+    "latin": "Pater Noster",
+    "translation": "Our Father",
+    "pronunciation": "PAH-ter NOS-ter",
+    "category": "liturgy",
+    "usage": "The Latin title and opening words of the Lord's Prayer."
+  },
+  {
+    "id": 6,
+    "latin": "Requiem aeternam dona eis Domine",
+    "translation": "Grant them eternal rest, O Lord",
+    "pronunciation": "REH-kwee-em eh-TER-nahm DOH-nah EH-ees DOH-mee-neh",
+    "category": "liturgy",
+    "usage": "Opening line of the Requiem Mass for the dead."
+  },
+  {
+    "id": 7,
+    "latin": "Dominus vobiscum",
+    "translation": "The Lord be with you",
+    "pronunciation": "DOH-mee-noos voh-BEES-koom",
+    "category": "liturgy",
+    "usage": "Greeting exchanged between priest and congregation during Mass."
+  },
+  {
+    "id": 8,
+    "latin": "Et cum spiritu tuo",
+    "translation": "And with your spirit",
+    "pronunciation": "et koom SPEE-ree-too TOO-oh",
+    "category": "liturgy",
+    "usage": "The congregation's response to Dominus vobiscum."
+  },
+  {
+    "id": 9,
+    "latin": "Ite, missa est",
+    "translation": "Go, the Mass is ended",
+    "pronunciation": "EE-teh MEE-sah est",
+    "category": "liturgy",
+    "usage": "The dismissal at the close of Mass, from which the word Mass derives."
+  },
+  {
+    "id": 10,
+    "latin": "Corpus Christi",
+    "translation": "Body of Christ",
+    "pronunciation": "KOR-poos KREES-tee",
+    "category": "liturgy",
+    "usage": "Words spoken at Communion and the name of the feast honoring the Eucharist."
+  },
+  {
+    "id": 11,
+    "latin": "In nomine Patris",
+    "translation": "In the name of the Father",
+    "pronunciation": "in NOH-mee-neh PAH-trees",
+    "category": "liturgy",
+    "usage": "Opening words of the Sign of the Cross."
+  },
+  {
+    "id": 12,
+    "latin": "Sursum corda",
+    "translation": "Lift up your hearts",
+    "pronunciation": "SOOR-soom KOR-dah",
+    "category": "liturgy",
+    "usage": "The priest's invitation opening the Preface of the Mass."
+  },
+  {
+    "id": 13,
+    "latin": "Credo in unum Deum",
+    "translation": "I believe in one God",
+    "pronunciation": "KREH-doh in OO-noom DEH-oom",
+    "category": "liturgy",
+    "usage": "Opening words of the Nicene Creed."
+  },
+  {
+    "id": 14,
+    "latin": "Ora pro nobis",
+    "translation": "Pray for us",
+    "pronunciation": "OH-rah proh NOH-bees",
+    "category": "liturgy",
+    "usage": "Refrain used throughout litanies invoking the saints."
+  },
+  {
+    "id": 15,
+    "latin": "Salve Regina",
+    "translation": "Hail, Holy Queen",
+    "pronunciation": "SAHL-veh reh-JEE-nah",
+    "category": "liturgy",
+    "usage": "A Marian antiphon traditionally prayed after Compline."
+  },
+  {
+    "id": 16,
+    "latin": "Tantum ergo",
+    "translation": "So great, therefore",
+    "pronunciation": "TAHN-toom ER-goh",
+    "category": "liturgy",
+    "usage": "Opening words of the closing verses of a Eucharistic hymn by Aquinas."
+  },
+  {
+    "id": 17,
+    "latin": "Adoro te devote",
+    "translation": "Devoutly I adore you",
+    "pronunciation": "ah-DOH-roh teh deh-VOH-teh",
+    "category": "liturgy",
+    "usage": "A Eucharistic hymn of adoration attributed to Thomas Aquinas."
+  },
+  {
+    "id": 18,
+    "latin": "Ecce Agnus Dei",
+    "translation": "Behold the Lamb of God",
+    "pronunciation": "EH-cheh AHN-yoos DEH-ee",
+    "category": "liturgy",
+    "usage": "Words the priest says while showing the Host before Communion."
+  },
+  {
+    "id": 19,
+    "latin": "Miserere mei, Deus",
+    "translation": "Have mercy on me, O God",
+    "pronunciation": "mee-zeh-REH-reh MEH-ee DEH-oos",
+    "category": "liturgy",
+    "usage": "Opening line of Psalm 51, a penitential psalm."
+  },
+  {
+    "id": 20,
+    "latin": "Ex opere operato",
+    "translation": "From the work performed",
+    "pronunciation": "ex OH-peh-reh oh-peh-RAH-toh",
+    "category": "liturgy",
+    "usage": "A sacramental theology term meaning grace is conferred by the rite itself."
+  },
+  {
+    "id": 21,
+    "latin": "Lex orandi, lex credendi",
+    "translation": "The law of praying is the law of believing",
+    "pronunciation": "lex oh-RAHN-dee lex kreh-DEN-dee",
+    "category": "liturgy",
+    "usage": "A principle holding that worship shapes doctrine."
+  },
+  {
+    "id": 22,
+    "latin": "Panem de caelo",
+    "translation": "Bread from heaven",
+    "pronunciation": "PAH-nem deh CHEH-loh",
+    "category": "liturgy",
+    "usage": "A phrase describing the Eucharist, echoing Exodus and John 6."
+  },
+  {
+    "id": 23,
+    "latin": "Verbum caro factum est",
+    "translation": "The Word was made flesh",
+    "pronunciation": "VER-boom KAH-roh FAHK-toom est",
+    "category": "liturgy",
+    "usage": "From the Prologue of John's Gospel, central to the Incarnation."
+  },
+  {
+    "id": 24,
+    "latin": "Deo gratias",
+    "translation": "Thanks be to God",
+    "pronunciation": "DEH-oh GRAH-tsee-ahs",
+    "category": "liturgy",
+    "usage": "A common liturgical response of thanksgiving."
+  },
+  {
+    "id": 25,
+    "latin": "In principio erat Verbum",
+    "translation": "In the beginning was the Word",
+    "pronunciation": "in preen-CHEE-pee-oh EH-raht VER-boom",
+    "category": "liturgy",
+    "usage": "Opening words of the Gospel of John."
+  },
+  {
+    "id": 26,
+    "latin": "Habeas corpus",
+    "translation": "You shall have the body",
+    "pronunciation": "HAH-beh-ahs KOR-poos",
+    "category": "law",
+    "usage": "A writ requiring a detained person be brought before a court."
+  },
+  {
+    "id": 27,
+    "latin": "In dubio pro reo",
+    "translation": "When in doubt, for the accused",
+    "pronunciation": "in DOO-bee-oh proh REH-oh",
+    "category": "law",
+    "usage": "A principle favoring the defendant when evidence is uncertain."
+  },
+  {
+    "id": 28,
+    "latin": "Actus reus",
+    "translation": "The guilty act",
+    "pronunciation": "AHK-toos REH-oos",
+    "category": "law",
+    "usage": "The physical element of a crime, as distinct from intent."
+  },
+  {
+    "id": 29,
+    "latin": "Mens rea",
+    "translation": "The guilty mind",
+    "pronunciation": "mens REH-ah",
+    "category": "law",
+    "usage": "The mental element of intent required to establish criminal liability."
+  },
+  {
+    "id": 30,
+    "latin": "Prima facie",
+    "translation": "At first sight",
+    "pronunciation": "PREE-mah FAH-kee-eh",
+    "category": "law",
+    "usage": "Describes evidence sufficient to establish a fact unless rebutted."
+  },
+  {
+    "id": 31,
+    "latin": "Ex post facto",
+    "translation": "From after the fact",
+    "pronunciation": "ex post FAHK-toh",
+    "category": "law",
+    "usage": "Describes a law that retroactively changes the legal consequences of past acts."
+  },
+  {
+    "id": 32,
+    "latin": "Amicus curiae",
+    "translation": "Friend of the court",
+    "pronunciation": "ah-MEE-koos KOO-ree-eye",
+    "category": "law",
+    "usage": "A party offering information to assist a court, though not part of the case."
+  },
+  {
+    "id": 33,
+    "latin": "Ratio decidendi",
+    "translation": "The reason for the decision",
+    "pronunciation": "RAH-tee-oh deh-kee-DEN-dee",
+    "category": "law",
+    "usage": "The legal principle on which a court's judgment rests."
+  },
+  {
+    "id": 34,
+    "latin": "Stare decisis",
+    "translation": "To stand by things decided",
+    "pronunciation": "STAH-reh deh-KEE-sees",
+    "category": "law",
+    "usage": "The doctrine that courts should follow precedent."
+  },
+  {
+    "id": 35,
+    "latin": "Corpus delicti",
+    "translation": "The body of the crime",
+    "pronunciation": "KOR-poos deh-LEEK-tee",
+    "category": "law",
+    "usage": "The facts and evidence proving a crime actually occurred."
+  },
+  {
+    "id": 36,
+    "latin": "Ipso facto",
+    "translation": "By the fact itself",
+    "pronunciation": "EEP-soh FAHK-toh",
+    "category": "law",
+    "usage": "Describes a result that follows automatically from an action."
+  },
+  {
+    "id": 37,
+    "latin": "Pacta sunt servanda",
+    "translation": "Agreements must be kept",
+    "pronunciation": "PAHK-tah soont ser-VAHN-dah",
+    "category": "law",
+    "usage": "A foundational principle of contract and treaty law."
+  },
+  {
+    "id": 38,
+    "latin": "Nulla poena sine lege",
+    "translation": "No penalty without a law",
+    "pronunciation": "NOOL-lah PEH-nah SEE-neh LEH-geh",
+    "category": "law",
+    "usage": "The principle that no punishment can be imposed without a prior law."
+  },
+  {
+    "id": 39,
+    "latin": "Onus probandi",
+    "translation": "The burden of proof",
+    "pronunciation": "OH-noos proh-BAHN-dee",
+    "category": "law",
+    "usage": "Describes the obligation to prove one's assertion."
+  },
+  {
+    "id": 40,
+    "latin": "Res judicata",
+    "translation": "A matter already judged",
+    "pronunciation": "rehs yoo-dee-KAH-tah",
+    "category": "law",
+    "usage": "The principle that a final judgment bars relitigating the same case."
+  },
+  {
+    "id": 41,
+    "latin": "Subpoena",
+    "translation": "Under penalty",
+    "pronunciation": "soo-PEH-nah",
+    "category": "law",
+    "usage": "A legal order compelling testimony or evidence, under threat of penalty."
+  },
+  {
+    "id": 42,
+    "latin": "Quid pro quo",
+    "translation": "Something for something",
+    "pronunciation": "kwid proh kwoh",
+    "category": "law",
+    "usage": "An exchange of goods, services, or favors."
+  },
+  {
+    "id": 43,
+    "latin": "De jure",
+    "translation": "By law",
+    "pronunciation": "deh YOO-reh",
+    "category": "law",
+    "usage": "Describes something existing by legal right, as opposed to in practice."
+  },
+  {
+    "id": 44,
+    "latin": "De facto",
+    "translation": "In fact",
+    "pronunciation": "deh FAHK-toh",
+    "category": "law",
+    "usage": "Describes something existing in practice, whether or not legally recognized."
+  },
+  {
+    "id": 45,
+    "latin": "Bona fide",
+    "translation": "In good faith",
+    "pronunciation": "BOH-nah FEE-deh",
+    "category": "law",
+    "usage": "Describes an act performed honestly and sincerely."
+  },
+  {
+    "id": 46,
+    "latin": "Caveat emptor",
+    "translation": "Let the buyer beware",
+    "pronunciation": "KAH-veh-aht EMP-tor",
+    "category": "law",
+    "usage": "A principle placing the burden of inspection on the buyer."
+  },
+  {
+    "id": 47,
+    "latin": "Nemo judex in causa sua",
+    "translation": "No one is judge in his own case",
+    "pronunciation": "NEH-moh YOO-dex in KOW-sah SOO-ah",
+    "category": "law",
+    "usage": "A principle of natural justice barring conflicts of interest in judgment."
+  },
+  {
+    "id": 48,
+    "latin": "In flagrante delicto",
+    "translation": "In the very act of the crime",
+    "pronunciation": "in flah-GRAHN-teh deh-LEEK-toh",
+    "category": "law",
+    "usage": "Describes being caught while committing an offense."
+  },
+  {
+    "id": 49,
+    "latin": "Sui generis",
+    "translation": "Of its own kind",
+    "pronunciation": "SOO-ee GEH-neh-rees",
+    "category": "law",
+    "usage": "Describes something unique, not fitting an existing legal category."
+  },
+  {
+    "id": 50,
+    "latin": "Ultra vires",
+    "translation": "Beyond the powers",
+    "pronunciation": "OOL-trah VEE-rehs",
+    "category": "law",
+    "usage": "Describes an act exceeding the legal authority granted to a person or body."
+  },
+  {
+    "id": 51,
+    "latin": "Cogito, ergo sum",
+    "translation": "I think, therefore I am",
+    "pronunciation": "KOH-gee-toh ER-goh soom",
+    "category": "philosophy",
+    "usage": "Descartes' foundational statement of certain self-knowledge."
+  },
+  {
+    "id": 52,
+    "latin": "Tabula rasa",
+    "translation": "Blank slate",
+    "pronunciation": "TAH-boo-lah RAH-sah",
+    "category": "philosophy",
+    "usage": "The idea that the mind begins empty, without innate ideas."
+  },
+  {
+    "id": 53,
+    "latin": "Ad infinitum",
+    "translation": "To infinity",
+    "pronunciation": "ahd in-fee-NEE-toom",
+    "category": "philosophy",
+    "usage": "Describes something continuing without end."
+  },
+  {
+    "id": 54,
+    "latin": "Nosce te ipsum",
+    "translation": "Know thyself",
+    "pronunciation": "NOS-keh teh IP-soom",
+    "category": "philosophy",
+    "usage": "A classical maxim urging self-knowledge as the beginning of wisdom."
+  },
+  {
+    "id": 55,
+    "latin": "Memento mori",
+    "translation": "Remember you must die",
+    "pronunciation": "meh-MEN-toh MOH-ree",
+    "category": "philosophy",
+    "usage": "A reminder of mortality meant to order one's priorities in life."
+  },
+  {
+    "id": 56,
+    "latin": "Carpe diem",
+    "translation": "Seize the day",
+    "pronunciation": "KAR-peh DEE-em",
+    "category": "philosophy",
+    "usage": "A call to make the most of the present moment."
+  },
+  {
+    "id": 57,
+    "latin": "Amor fati",
+    "translation": "Love of fate",
+    "pronunciation": "AH-mor FAH-tee",
+    "category": "philosophy",
+    "usage": "The Stoic and Nietzschean ideal of embracing one's circumstances fully."
+  },
+  {
+    "id": 58,
+    "latin": "Ex nihilo nihil fit",
+    "translation": "Nothing comes from nothing",
+    "pronunciation": "ex NEE-hee-loh NEE-heel feet",
+    "category": "philosophy",
+    "usage": "A principle of causation debated since Parmenides and Lucretius."
+  },
+  {
+    "id": 59,
+    "latin": "Sapere aude",
+    "translation": "Dare to know",
+    "pronunciation": "SAH-peh-reh OW-deh",
+    "category": "philosophy",
+    "usage": "Kant's motto for the Enlightenment, urging courage in reasoning."
+  },
+  {
+    "id": 60,
+    "latin": "Vanitas vanitatum",
+    "translation": "Vanity of vanities",
+    "pronunciation": "VAH-nee-tahs vah-nee-TAH-toom",
+    "category": "philosophy",
+    "usage": "From Ecclesiastes, reflecting on the emptiness of worldly pursuits."
+  },
+  {
+    "id": 61,
+    "latin": "Esse est percipi",
+    "translation": "To be is to be perceived",
+    "pronunciation": "ES-seh est per-KEE-pee",
+    "category": "philosophy",
+    "usage": "Berkeley's idealist principle that existence depends on perception."
+  },
+  {
+    "id": 62,
+    "latin": "Natura non facit saltus",
+    "translation": "Nature does not make leaps",
+    "pronunciation": "nah-TOO-rah nohn FAH-keet SAHL-toos",
+    "category": "philosophy",
+    "usage": "A principle of gradual, continuous change in nature."
+  },
+  {
+    "id": 63,
+    "latin": "Veritas",
+    "translation": "Truth",
+    "pronunciation": "VEH-ree-tahs",
+    "category": "philosophy",
+    "usage": "A single word naming the central aim of philosophical inquiry."
+  },
+  {
+    "id": 64,
+    "latin": "In medio stat virtus",
+    "translation": "Virtue stands in the middle",
+    "pronunciation": "in MEH-dee-oh staht VEER-toos",
+    "category": "philosophy",
+    "usage": "An expression of Aristotle's doctrine of the golden mean."
+  },
+  {
+    "id": 65,
+    "latin": "Dubito, ergo cogito",
+    "translation": "I doubt, therefore I think",
+    "pronunciation": "DOO-bee-toh ER-goh KOH-gee-toh",
+    "category": "philosophy",
+    "usage": "A restatement showing doubt itself as evidence of thought."
+  },
+  {
+    "id": 66,
+    "latin": "Panem et circenses",
+    "translation": "Bread and circuses",
+    "pronunciation": "PAH-nem et keer-KEN-sehs",
+    "category": "philosophy",
+    "usage": "Juvenal's critique of a populace pacified by comfort and entertainment."
+  },
+  {
+    "id": 67,
+    "latin": "Homo sum, humani nihil a me alienum puto",
+    "translation": "I am human, nothing human is foreign to me",
+    "pronunciation": "HOH-moh soom hoo-MAH-nee NEE-heel ah meh ah-lee-EH-noom POO-toh",
+    "category": "philosophy",
+    "usage": "Terence's expression of universal human sympathy."
+  },
+  {
+    "id": 68,
+    "latin": "Scientia potentia est",
+    "translation": "Knowledge is power",
+    "pronunciation": "skee-EN-tee-ah poh-TEN-tee-ah est",
+    "category": "philosophy",
+    "usage": "Attributed to Francis Bacon, linking understanding to capability."
+  },
+  {
+    "id": 69,
+    "latin": "Cogitationis poenam nemo patitur",
+    "translation": "No one suffers punishment for thought alone",
+    "pronunciation": "koh-gee-tah-tee-OH-nees POH-nahm NEH-moh PAH-tee-toor",
+    "category": "philosophy",
+    "usage": "A legal-philosophical maxim that thought alone is not punishable."
+  },
+  {
+    "id": 70,
+    "latin": "Mens sana in corpore sano",
+    "translation": "A sound mind in a sound body",
+    "pronunciation": "mens SAH-nah in KOR-poh-reh SAH-noh",
+    "category": "philosophy",
+    "usage": "Juvenal's ideal of balanced physical and mental well-being."
+  },
+  {
+    "id": 71,
+    "latin": "Ex nihilo",
+    "translation": "From nothing",
+    "pronunciation": "ex NEE-hee-loh",
+    "category": "philosophy",
+    "usage": "Used especially of the doctrine of creation out of nothing."
+  },
+  {
+    "id": 72,
+    "latin": "Vita brevis, ars longa",
+    "translation": "Life is short, art is long",
+    "pronunciation": "VEE-tah BREH-vees ars LONG-gah",
+    "category": "philosophy",
+    "usage": "A reflection, after Hippocrates, on the brevity of life against craft's endurance."
+  },
+  {
+    "id": 73,
+    "latin": "Fiat lux",
+    "translation": "Let there be light",
+    "pronunciation": "FEE-aht loox",
+    "category": "philosophy",
+    "usage": "The Vulgate's rendering of the first divine command in Genesis."
+  },
+  {
+    "id": 74,
+    "latin": "Cave ab homine unius libri",
+    "translation": "Beware the man of one book",
+    "pronunciation": "KAH-veh ahb HOH-mee-neh OO-nee-oos LEE-bree",
+    "category": "philosophy",
+    "usage": "A caution against the certainty of someone who knows only a single source."
+  },
+  {
+    "id": 75,
+    "latin": "Cui bono",
+    "translation": "To whose benefit",
+    "pronunciation": "KOO-ee BOH-noh",
+    "category": "philosophy",
+    "usage": "A question used to uncover motive by asking who gains from an act."
+  },
+  {
+    "id": 76,
+    "latin": "E pluribus unum",
+    "translation": "Out of many, one",
+    "pronunciation": "eh PLOO-ree-boos OO-noom",
+    "category": "motto",
+    "usage": "A traditional motto describing unity formed from many parts."
+  },
+  {
+    "id": 77,
+    "latin": "Semper fidelis",
+    "translation": "Always faithful",
+    "pronunciation": "SEM-per fee-DEH-lees",
+    "category": "motto",
+    "usage": "A motto of steadfast loyalty, notably used by the US Marine Corps."
+  },
+  {
+    "id": 78,
+    "latin": "Per aspera ad astra",
+    "translation": "Through hardships to the stars",
+    "pronunciation": "per AHS-peh-rah ahd AHS-trah",
+    "category": "motto",
+    "usage": "A motto affirming that great achievement follows difficulty."
+  },
+  {
+    "id": 79,
+    "latin": "Veni, vidi, vici",
+    "translation": "I came, I saw, I conquered",
+    "pronunciation": "VEH-nee VEE-dee VEE-kee",
+    "category": "motto",
+    "usage": "Julius Caesar's famously terse report of a swift victory."
+  },
+  {
+    "id": 80,
+    "latin": "Non nobis solum",
+    "translation": "Not for ourselves alone",
+    "pronunciation": "nohn NOH-bees SOH-loom",
+    "category": "motto",
+    "usage": "A motto urging service beyond one's own interest."
+  },
+  {
+    "id": 81,
+    "latin": "Fortis fortuna adiuvat",
+    "translation": "Fortune favors the bold",
+    "pronunciation": "FOR-tees for-TOO-nah ah-dee-OO-vaht",
+    "category": "motto",
+    "usage": "A motto encouraging courage in the face of uncertainty."
+  },
+  {
+    "id": 82,
+    "latin": "Excelsior",
+    "translation": "Ever upward",
+    "pronunciation": "ex-CHEL-see-or",
+    "category": "motto",
+    "usage": "A motto of continual striving toward higher achievement."
+  },
+  {
+    "id": 83,
+    "latin": "Aut vincere aut mori",
+    "translation": "Either to conquer or to die",
+    "pronunciation": "owt VEEN-cheh-reh owt MOH-ree",
+    "category": "motto",
+    "usage": "A motto of total commitment, common on military standards."
+  },
+  {
+    "id": 84,
+    "latin": "Semper paratus",
+    "translation": "Always prepared",
+    "pronunciation": "SEM-per pah-RAH-toos",
+    "category": "motto",
+    "usage": "A motto of readiness, notably used by the US Coast Guard."
+  },
+  {
+    "id": 85,
+    "latin": "Nil desperandum",
+    "translation": "Never despair",
+    "pronunciation": "neel deh-speh-RAHN-doom",
+    "category": "motto",
+    "usage": "A motto of encouragement from Horace against giving up hope."
+  },
+  {
+    "id": 86,
+    "latin": "Age quod agis",
+    "translation": "Do what you are doing",
+    "pronunciation": "AH-geh kwohd AH-gees",
+    "category": "motto",
+    "usage": "A motto urging full attention and presence in one's current task."
+  },
+  {
+    "id": 87,
+    "latin": "Fiat justitia ruat caelum",
+    "translation": "Let justice be done though the heavens fall",
+    "pronunciation": "FEE-aht yoos-TEE-tee-ah ROO-aht CHEH-loom",
+    "category": "motto",
+    "usage": "A motto affirming justice must prevail regardless of consequence."
+  },
+  {
+    "id": 88,
+    "latin": "Alis volat propriis",
+    "translation": "She flies with her own wings",
+    "pronunciation": "AH-lees VOH-laht PROH-pree-ees",
+    "category": "motto",
+    "usage": "A motto of self-reliance and independence."
+  },
+  {
+    "id": 89,
+    "latin": "Ad astra per aspera",
+    "translation": "To the stars through difficulties",
+    "pronunciation": "ahd AHS-trah per AHS-peh-rah",
+    "category": "motto",
+    "usage": "A variant motto affirming that great heights are reached through struggle."
+  },
+  {
+    "id": 90,
+    "latin": "Non ducor, duco",
+    "translation": "I am not led, I lead",
+    "pronunciation": "nohn DOO-kor DOO-koh",
+    "category": "motto",
+    "usage": "A motto asserting initiative rather than passive following."
+  },
+  {
+    "id": 91,
+    "latin": "Labor omnia vincit",
+    "translation": "Work conquers all",
+    "pronunciation": "LAH-bor OM-nee-ah VEEN-cheet",
+    "category": "motto",
+    "usage": "A motto from Virgil praising the power of diligent effort."
+  },
+  {
+    "id": 92,
+    "latin": "Vincit qui se vincit",
+    "translation": "He conquers who conquers himself",
+    "pronunciation": "VEEN-cheet kwee seh VEEN-cheet",
+    "category": "motto",
+    "usage": "A motto praising mastery over oneself as the truest victory."
+  },
+  {
+    "id": 93,
+    "latin": "Esse quam videri",
+    "translation": "To be, rather than to seem",
+    "pronunciation": "ES-seh kwahm vee-DEH-ree",
+    "category": "motto",
+    "usage": "A motto valuing genuine substance over outward appearance."
+  },
+  {
+    "id": 94,
+    "latin": "Deo volente",
+    "translation": "God willing",
+    "pronunciation": "DEH-oh voh-LEN-teh",
+    "category": "motto",
+    "usage": "A phrase acknowledging that plans proceed subject to God's will."
+  },
+  {
+    "id": 95,
+    "latin": "Nemo me impune lacessit",
+    "translation": "No one provokes me with impunity",
+    "pronunciation": "NEH-moh meh eem-POO-neh lah-KES-seet",
+    "category": "motto",
+    "usage": "A motto of defiance against unpunished offense."
+  },
+  {
+    "id": 96,
+    "latin": "Fides et ratio",
+    "translation": "Faith and reason",
+    "pronunciation": "FEE-dehs et RAH-tee-oh",
+    "category": "motto",
+    "usage": "A motto affirming the harmony of belief and rational inquiry."
+  },
+  {
+    "id": 97,
+    "latin": "In hoc signo vinces",
+    "translation": "In this sign you will conquer",
+    "pronunciation": "in hohk SEEG-noh VEEN-chehs",
+    "category": "motto",
+    "usage": "Words traditionally associated with Constantine's vision of the cross."
+  },
+  {
+    "id": 98,
+    "latin": "Audentes fortuna iuvat",
+    "translation": "Fortune favors the daring",
+    "pronunciation": "ow-DEN-tehs for-TOO-nah YOO-vaht",
+    "category": "motto",
+    "usage": "A variant of the famous Virgilian motto praising boldness."
+  },
+  {
+    "id": 99,
+    "latin": "Ad meliora",
+    "translation": "Toward better things",
+    "pronunciation": "ahd meh-lee-OH-rah",
+    "category": "motto",
+    "usage": "A motto expressing hope and effort toward improvement."
+  },
+  {
+    "id": 100,
+    "latin": "Post tenebras lux",
+    "translation": "After darkness, light",
+    "pronunciation": "post TEH-neh-brahs loox",
+    "category": "motto",
+    "usage": "A motto of hope, associating truth or renewal with light following darkness."
+  }
+];
+
+  var FAV_KEY = "latinPhrase116_favorites";
+  var STATE_KEY = "latinPhrase116_lastState";
+
+  function safeGet(key) {
+    try {
+      var raw = window.localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function safeSet(key, value) {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      /* ignore storage failures, app still works in-memory */
+    }
+  }
+
+  var favorites = safeGet(FAV_KEY) || [];
+  var lastState = safeGet(STATE_KEY) || { activeView: "today", archiveFilter: "all", archiveOffset: 0 };
+
+  function dayOfYear(date) {
+    var start = new Date(date.getFullYear(), 0, 0);
+    var diff = date - start;
+    var oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  }
+
+  function getPhraseForOffset(offset) {
+    var today = new Date();
+    var base = dayOfYear(today);
+    var index = ((base + offset) % PHRASES.length + PHRASES.length) % PHRASES.length;
+    return PHRASES[index];
+  }
+
+  function isFavorite(id) {
+    return favorites.indexOf(id) !== -1;
+  }
+
+  function toggleFavorite(id) {
+    var pos = favorites.indexOf(id);
+    if (pos === -1) {
+      favorites.push(id);
+    } else {
+      favorites.splice(pos, 1);
+    }
+    safeSet(FAV_KEY, favorites);
+  }
+
+  function catLabel(cat) {
+    var labels = {
+      liturgy: "Liturgy",
+      law: "Law",
+      philosophy: "Philosophy",
+      motto: "Motto"
+    };
+    return labels[cat] || cat;
+  }
+
+  function formatToday() {
+    var d = new Date();
+    var options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+    return d.toLocaleDateString(undefined, options);
+  }
+
+  function renderToday() {
+    var phrase = getPhraseForOffset(0);
+    var card = document.getElementById("today-card");
+    var favActive = isFavorite(phrase.id) ? "active" : "";
+    var starChar = isFavorite(phrase.id) ? String.fromCharCode(9733) : String.fromCharCode(9734);
+
+    card.innerHTML =
+      '<div class="today-date">' + formatToday() + '</div>' +
+      '<span class="cat-pill cat-' + phrase.category + '">' + catLabel(phrase.category) + '</span>' +
+      '<p class="latin-text">' + phrase.latin + '</p>' +
+      '<p class="translation-text">' + phrase.translation + '</p>' +
+      '<p class="pronunciation-row"><span class="label">Pronunciation:</span>' + phrase.pronunciation + '</p>' +
+      '<p class="usage-text">' + phrase.usage + '</p>' +
+      '<div class="card-footer-row">' +
+        '<button type="button" class="fav-btn ' + favActive + '" id="fav-toggle-btn">' +
+          '<span class="star">' + starChar + '</span>' +
+          '<span>' + (isFavorite(phrase.id) ? "Favorited" : "Favorite") + '</span>' +
+        '</button>' +
+      '</div>';
+
+    document.getElementById("fav-toggle-btn").addEventListener("click", function () {
+      toggleFavorite(phrase.id);
+      renderToday();
+    });
+  }
+
+  var CATEGORIES = ["all", "liturgy", "law", "philosophy", "motto"];
+
+  function renderFilterRow() {
+    var row = document.getElementById("filter-row");
+    row.innerHTML = "";
+    CATEGORIES.forEach(function (cat) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "filter-chip" + (lastState.archiveFilter === cat ? " active" : "");
+      chip.textContent = cat === "all" ? "All" : catLabel(cat);
+      chip.addEventListener("click", function () {
+        lastState.archiveFilter = cat;
+        lastState.archiveOffset = 0;
+        safeSet(STATE_KEY, lastState);
+        renderFilterRow();
+        renderArchive();
+      });
+      row.appendChild(chip);
+    });
+  }
+
+  var openEntryId = null;
+
+  function renderArchive() {
+    var offset = lastState.archiveOffset;
+    var phrase = getPhraseForOffset(offset);
+    var filter = lastState.archiveFilter;
+
+    var list = document.getElementById("archive-list");
+    var label = document.getElementById("page-label");
+
+    if (filter !== "all" && phrase.category !== filter) {
+      list.innerHTML = '<div class="empty-note">No phrase in this category for this day. Use the arrows to browse to a matching day.</div>';
+      label.textContent = offset === 0 ? "Today" : (offset > 0 ? "+" + offset + " days" : offset + " days");
+      return;
+    }
+
+    label.textContent = offset === 0 ? "Today" : (offset > 0 ? "+" + offset + " days" : offset + " days");
+
+    var isOpen = openEntryId === phrase.id;
+    var entry = document.createElement("div");
+    entry.className = "archive-entry" + (isOpen ? " open" : "");
+
+    entry.innerHTML =
+      '<button type="button" class="archive-entry-head" id="archive-head-btn">' +
+        '<span>' +
+          '<span class="cat-pill cat-' + phrase.category + '">' + catLabel(phrase.category) + '</span><br>' +
+          '<span class="latin-small">' + phrase.latin + '</span>' +
+        '</span>' +
+        '<span class="chev">&#9660;</span>' +
+      '</button>' +
+      '<div class="archive-entry-body">' +
+        '<p class="translation-text">' + phrase.translation + '</p>' +
+        '<p class="pronunciation-row"><span class="label">Pronunciation:</span>' + phrase.pronunciation + '</p>' +
+        '<p class="usage-text">' + phrase.usage + '</p>' +
+      '</div>';
+
+    list.innerHTML = "";
+    list.appendChild(entry);
+
+    document.getElementById("archive-head-btn").addEventListener("click", function () {
+      openEntryId = isOpen ? null : phrase.id;
+      renderArchive();
+    });
+  }
+
+  function pageArchive(direction) {
+    lastState.archiveOffset = lastState.archiveOffset + direction;
+    openEntryId = null;
+    safeSet(STATE_KEY, lastState);
+    renderArchive();
+  }
+  window.pageArchive = pageArchive;
+
+  function switchView(view) {
+    lastState.activeView = view;
+    safeSet(STATE_KEY, lastState);
+
+    document.getElementById("view-today").classList.toggle("active", view === "today");
+    document.getElementById("view-archive").classList.toggle("active", view === "archive");
+    document.getElementById("tab-today").classList.toggle("active", view === "today");
+    document.getElementById("tab-archive").classList.toggle("active", view === "archive");
+  }
+  window.switchView = switchView;
+
+  function init() {
+    renderToday();
+    renderFilterRow();
+    renderArchive();
+    switchView(lastState.activeView === "archive" ? "archive" : "today");
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
